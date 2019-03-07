@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import subprocess
 import re
 import os
@@ -6,7 +7,6 @@ import sys
 
 esptool = "esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 1000000 write_flash -z 0x1000"
 firmware_file = sys.argv[1]
-print (firmware_file)
 cmd = "{} {}".format(esptool, firmware_file)
 devnull = open(os.devnull, 'w')
 
