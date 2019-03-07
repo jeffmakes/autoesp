@@ -2,15 +2,17 @@ import subprocess
 import re
 import os
 from tqdm import tqdm
+import sys
 
 esptool = "esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 1000000 write_flash -z 0x1000"
-firmware_file = "firmware-leds-dim.bin"
+firmware_file = sys.argv[1]
+print (firmware_file)
 cmd = "{} {}".format(esptool, firmware_file)
 devnull = open(os.devnull, 'w')
 
 
 
-def main():
+def flash():
 	process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=devnull)	
 
 	input('Plug in badge and press return: ')
@@ -39,11 +41,17 @@ def main():
 		if output:
 			pass
 
-
-
+	#pbar.clear()
+	pbar.close()
 	retval = process.poll()
 	if (retval):
-		print ("Flashing failed - please retry")
+		print ("Flashing FAILED - please retry")
+	else:
+		print ("Flashed OK!")
+
+def main():	
+	while True:
+		flash()
 
 if __name__ == "__main__":	
 	# execute only if run as a script
