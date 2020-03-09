@@ -35,7 +35,7 @@ def flash():
 			pbar.update(progress - prev_progress)
 			prev_progress = progress
 
-		if process.poll() is not None and len(output) != 0:
+		if process.poll() is not None:
 			#print(process.poll())
 			break
 		if output:
